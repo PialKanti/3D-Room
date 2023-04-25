@@ -619,22 +619,26 @@ void handleKeyPressed(unsigned char key, int x, int y)
         exit(0);
     case 'a':
     case 'A':
-        camera_y = camera_y - 0.5;
+        camera_y = camera_y - 0.5*cos(camera_x_angle);
+        camera_x = camera_x + 0.5*sin(camera_y_angle);
         //center_z = center_z - 0.5;
         break;
     case 'd':
     case 'D':
-        camera_y = camera_y + 0.5;
+        camera_y = camera_y + 0.5*cos(camera_x_angle);
+        camera_x = camera_x - 0.5*sin(camera_y_angle);
         //center_z = center_z + 0.5;
         break;
     case 'w':
     case 'W':
-        camera_x = camera_x + 0.5;
+        camera_x = camera_x + 0.5*cos(camera_x_angle);
+        camera_y = camera_y + 0.5*sin(camera_y_angle);
         //center_x = center_x + 0.5;
         break;
     case 's':
     case 'S':
-        camera_x = camera_x - 0.5;
+        camera_x = camera_x - 0.5*cos(camera_x_angle);
+        camera_y = camera_y - 0.5*sin(camera_y_angle);
         //center_x = center_x - 0.5;
         break;
     case 'u':
@@ -741,8 +745,6 @@ static void idle(void)
     glutPostRedisplay();
 }
 
-
-
 int main(int argc, char **argv)
 {
     glutInit(&argc,argv);
@@ -771,7 +773,8 @@ int main(int argc, char **argv)
     loadTexture("C:\\Users\\Pial\\Documents\\GitHub\\3D-Room\\floor.bmp", 3);
     loadTexture("C:\\Users\\Pial\\Documents\\GitHub\\3D-Room\\table.bmp", 4);
     loadTexture("C:\\Users\\Pial\\Documents\\GitHub\\3D-Room\\shelf.bmp", 5);
-
+	
+	glutFullScreen(); // for displaying full screen
 
     glutDisplayFunc(display);
     glutKeyboardFunc(handleKeyPressed);
